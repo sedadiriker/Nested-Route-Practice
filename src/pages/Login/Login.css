@@ -1,0 +1,26 @@
+.login {
+    font-size: 3rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  & button {
+    padding: 10px 1rem;
+    cursor: pointer;
+  }
+  & .back{
+    margin-top: 1rem;
+    & .back-home{
+        text-decoration: none;
+        font-size: 1.5rem;
+    }
+  }
+}

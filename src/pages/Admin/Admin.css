@@ -1,0 +1,29 @@
+.admin{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & .title{
+        font-size: 3rem;
+    
+    }
+    & .titles{
+        display: flex;
+        gap: 2rem;
+        padding-bottom: 2rem;
+        & p{
+            color: white;
+            background-color: rgb(75, 42, 165);
+            padding: 10px 1rem;
+            cursor: pointer;
+        }
+    }
+    .outlet{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 50vh;
+    }
+}
