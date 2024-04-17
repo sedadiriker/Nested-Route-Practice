@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Nested Route Kullanımı
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Nested route, birçok modern web uygulamasında kullanılan bir yönlendirme yöntemidir. Bu yöntem, bir ana bileşen içinde başka bileşenlerin gösterilmesini sağlar. Özellikle karmaşık veya hiyerarşik veri yapılarına sahip uygulamalarda yaygın olarak kullanılır.
 
-## Available Scripts
+## Nasıl Yapılır?
 
-In the project directory, you can run:
+1. **Ana Route Oluşturma**: İlk adım olarak, ana route'unuzu oluşturmanız gerekir. Bu, genellikle uygulamanızın ana bileşeni için yapılır.
 
-### `yarn start`
+2. **Nested Route Oluşturma**: Ana bileşeninizde başka bir bileşene gömülü bir bileşen oluşturursunuz ve bunun için bir nested route tanımlarsınız. Bu, genellikle bir alt bileşenin daha fazla detayını göstermek için yapılır.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. **Router Outlet Kullanımı**: Nested route kullanırken, genellikle `Router Outlet` bileşenini kullanırsınız. Bu bileşen, içine gömülü bileşenleri dinamik olarak göstermek için kullanılır. Ana bileşeninizde bu bileşeni kullanarak nested route'ları gösterirsiniz.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Örnek
 
-### `yarn test`
+```javascript
+<div>
+  <BrowserRouter>
+    <Routes>
+      {/* Ana Route: Ana sayfa */}
+      <Route path="/" element={<Home />} />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+      {/* Ana Route: Giriş Yap */}
+      <Route path="/login" element={<Login />} />
 
-### `yarn build`
+      {/* Ana Route: Kullanıcı */}
+      <Route path="/user" element={<User />}>
+        {/* Nested Route: Kullanıcı Ana Sayfa */}
+        <Route index path="" element={<UserHome/>}/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+        {/* Nested Route: Kullanıcı Ürünleri */}
+        <Route path="userProduct" element={<UserProduct/>}/>
+      </Route>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+      {/* Ana Route: Yönetici */}
+      <Route path="/admin" element={<Admin />}>
+        {/* Nested Route: Yönetici Ana Sayfa */}
+        <Route path="adminHome" element={<AdminHome/>}/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+        {/* Nested Route: Yönetici Ürünleri */}
+        <Route index path="" element={<AdminProduct/>}/>
 
-### `yarn eject`
+        {/* Nested Route: Yönetici Ürün Ekleme */}
+        <Route path="adminAddProduct" element={<AdminAddProduct/>}/>
+      </Route>
+    </Routes>
+  </BrowserRouter>
+</div>
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- path özelliği, belirli bir URL yoluyla eşleşen rotayı belirtir.
+- element özelliği, eşleşen rotanın karşılık gelen bileşeni veya bileşen ağacını temsil eder.
+- index özelliği, nested route'un ana bileşeni olmasını belirtir. Yani, path="" ile tanımlanan rotaya erişildiğinde bu bileşen gösterilir.
+Örneğin, /user yolu eşleştiğinde <User> bileşeni gösterilir ve içinde iki adet nested route bulunur: path="" (index) olan route <UserHome> bileşenini, path="userProduct" olan route ise <UserProduct> bileşenini gösterir. Benzer şekilde, /admin yolu eşleştiğinde <Admin> bileşeni gösterilir ve içindeki nested routelar belirtilen bileşenleri gösterir.
